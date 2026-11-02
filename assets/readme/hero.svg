@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="576" viewBox="0 0 1200 576" role="img" aria-labelledby="title desc">
+  <title id="title">WSA-AOSP</title>
+  <desc id="desc">Unofficial Windows Subsystem for Android builds: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. The layer stack marks what is new (graphics DLLs, Google Play and Berberis, Android 17, Linux 6.18 with the root of your choice: KernelSU, SukiSU-Ultra, KernelSU-Next, SuSFS or Magisk) and what is kept from Microsoft's WSA 2407 (the host and the vendor partition).</desc>
+
+  <rect width="1200" height="576" rx="24" fill="#0E1116"/>
+  <rect x="0.75" y="0.75" width="1198.5" height="574.5" rx="23.5" fill="none" stroke="#202833" stroke-width="1.5"/>
+
+  <g id="title-block">
+    <text x="64" y="128" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="17" letter-spacing="1.5" fill="#8D96A3">WINDOWS SUBSYSTEM FOR ANDROID · UNOFFICIAL</text>
+    <text x="60" y="214" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="84" font-weight="600" letter-spacing="-1" fill="#F0EEE9">WSA-<tspan fill="#3DDC84">AOSP</tspan></text>
+    <g font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="27" fill="#C9CED6">
+      <text x="64" y="270">Microsoft's WSA host with Android 17,</text>
+      <text x="64" y="306">a Linux 6.18 kernel and graphics</text>
+      <text x="64" y="342">rebuilt from source.</text>
+    </g>
+    <g id="legend" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="19" fill="#C9CED6">
+      <rect x="64" y="397" width="16" height="16" rx="3" fill="#3DDC84"/>
+      <text x="92" y="411">new: built from source or added</text>
+      <rect x="65" y="432" width="14" height="14" rx="3" fill="none" stroke="#6CA6E8" stroke-width="2"/>
+      <text x="92" y="445">kept from Microsoft's WSA 2407</text>
+    </g>
+    <text x="64" y="500" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="17" fill="#8D96A3">Windows 11 x64 · Google Play · root of your choice</text>
+  </g>
+
+  <g id="layer-stack" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif" font-size="20" fill="#F0EEE9">
+    <g id="host">
+      <rect x="648" y="48" width="488" height="164" rx="14" fill="#131820" stroke="#2A313C" stroke-width="1.5"/>
+      <text x="668" y="77" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" letter-spacing="1.5" fill="#8D96A3">WINDOWS 11 HOST</text>
+      <rect x="664" y="92" width="456" height="48" rx="8" fill="#10151C" stroke="#34404F" stroke-width="1.5"/>
+      <rect x="681" y="109" width="14" height="14" rx="3" fill="none" stroke="#6CA6E8" stroke-width="2"/>
+      <text x="710" y="123">WSA host: app windows, Start menu</text>
+      <rect x="664" y="148" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
+      <rect x="680" y="164" width="16" height="16" rx="3" fill="#3DDC84"/>
+      <text x="710" y="179">Graphics DLLs: gfxstream, Dozen (Mesa)</text>
+    </g>
+
+    <g id="link" stroke="#5C6673" stroke-width="2" fill="none">
+      <path d="M892 216 V248"/>
+      <path d="M886 222 L892 215 L898 222"/>
+      <path d="M886 242 L892 249 L898 242"/>
+    </g>
+    <text x="908" y="238" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#8D96A3">virtio-gpu</text>
+
+    <g id="vm">
+      <rect x="648" y="252" width="488" height="276" rx="14" fill="#131820" stroke="#2A313C" stroke-width="1.5"/>
+      <text x="668" y="281" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" letter-spacing="1.5" fill="#8D96A3">HYPER-V VIRTUAL MACHINE</text>
+      <rect x="664" y="296" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
+      <rect x="680" y="312" width="16" height="16" rx="3" fill="#3DDC84"/>
+      <text x="710" y="327">Google Play · ARM apps via Berberis</text>
+      <rect x="664" y="352" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
+      <rect x="680" y="368" width="16" height="16" rx="3" fill="#3DDC84"/>
+      <text x="710" y="383">Android 17 (AOSP) · SELinux enforcing</text>
+      <rect x="664" y="408" width="456" height="48" rx="8" fill="#10151C" stroke="#34404F" stroke-width="1.5"/>
+      <rect x="681" y="425" width="14" height="14" rx="3" fill="none" stroke="#6CA6E8" stroke-width="2"/>
+      <text x="710" y="439">Vendor partition (WSA 2407)</text>
+      <rect x="664" y="464" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
+      <rect x="680" y="480" width="16" height="16" rx="3" fill="#3DDC84"/>
+      <text x="710" y="495">Linux 6.18 · KernelSU, Magisk, SuSFS</text>
+    </g>
+  </g>
+</svg>

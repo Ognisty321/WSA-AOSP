@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">What a running WSA-AOSP build reports, and what was measured</title>
+  <desc id="desc">Left: adb shell output from a running build: Android 17, kernel 6.18.33-android17, SELinux enforcing, Vulkan 1.3.261 on the host NVIDIA GeForce RTX 5070 Ti through gfxstream, and the OpenGL ES Android Extension Pack feature. Right: measured before and after, against the upstream code of each part: Genshin Impact shader warm-up 45 min to 2.5 min (ANGLE), graphics call from Android to Windows (round trip) 13 µs to 1.2 µs (gfxstream), longest hitch in the first race of Hill Climb Racing 3 450 ms to 260 ms (Berberis), and 4 to 8 times less memory for ETC2 and ASTC textures on integrated GPUs and GPUs under 6 GB.</desc>
+
+  <rect width="1200" height="520" rx="24" fill="#0E1116"/>
+  <rect x="0.75" y="0.75" width="1198.5" height="518.5" rx="23.5" fill="none" stroke="#202833" stroke-width="1.5"/>
+
+  <g id="readout" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace">
+    <rect x="48" y="48" width="608" height="424" rx="14" fill="#090C10" stroke="#2A313C" stroke-width="1.5"/>
+    <path d="M48 96 H656" stroke="#2A313C" stroke-width="1.5"/>
+    <text x="72" y="79" font-size="16" fill="#8D96A3">adb -s 127.0.0.1:58526 shell</text>
+    <text x="632" y="79" font-size="16" fill="#3DDC84" text-anchor="end">● running</text>
+    <g font-size="19">
+      <text x="72" y="134" fill="#8D96A3">$ <tspan fill="#C9CED6">getprop ro.build.version.release</tspan></text>
+      <text x="72" y="162" fill="#F0EEE9">17</text>
+      <text x="72" y="198" fill="#8D96A3">$ <tspan fill="#C9CED6">uname -r</tspan></text>
+      <text x="72" y="226" fill="#F0EEE9">6.18.33-android17-5-g05a79f1d503f</text>
+      <text x="72" y="262" fill="#8D96A3">$ <tspan fill="#C9CED6">getenforce</tspan></text>
+      <text x="72" y="290" fill="#F0EEE9">Enforcing</text>
+      <text x="72" y="326" fill="#8D96A3">$ <tspan fill="#C9CED6">cmd gpu vkjson</tspan>   # deviceName, apiVersion</text>
+      <text x="72" y="354" fill="#F0EEE9">Virtio-GPU GFXStream (NVIDIA GeForce RTX 5070 Ti)</text>
+      <text x="72" y="382" fill="#F0EEE9">1.3.261</text>
+      <text x="72" y="418" fill="#8D96A3">$ <tspan fill="#C9CED6">pm list features | grep aep</tspan></text>
+      <text x="72" y="446" fill="#F0EEE9">feature:android.hardware.opengles.aep</text>
+    </g>
+  </g>
+
+  <g id="measured" font-family="'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif">
+    <text x="696" y="80" font-size="24" font-weight="600" fill="#F0EEE9">Measured, before → after</text>
+    <text x="696" y="108" font-size="18" fill="#8D96A3">against the upstream code of each part</text>
+
+    <g id="m1" transform="translate(696 136)">
+      <rect x="0" y="12" width="14" height="14" rx="3" fill="#3DDC84"/>
+      <text x="26" y="38" font-size="38" font-weight="600" fill="#F0EEE9">2.5 min</text>
+      <text x="196" y="18" font-size="20" fill="#C9CED6">Genshin shader warm-up</text>
+      <text x="196" y="46" font-size="18" fill="#8D96A3" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace">was 45 min · ANGLE</text>
+    </g>
+    <g id="m2" transform="translate(696 220)">
+      <rect x="0" y="12" width="14" height="14" rx="3" fill="#3DDC84"/>
+      <text x="26" y="38" font-size="38" font-weight="600" fill="#F0EEE9">1.2 µs</text>
+      <text x="196" y="18" font-size="20" fill="#C9CED6">Android → Windows call</text>
+      <text x="196" y="46" font-size="18" fill="#8D96A3" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace">was 13 µs · gfxstream</text>
+    </g>
+    <g id="m3" transform="translate(696 304)">
+      <rect x="0" y="12" width="14" height="14" rx="3" fill="#3DDC84"/>
+      <text x="26" y="38" font-size="38" font-weight="600" fill="#F0EEE9">260 ms</text>
+      <text x="196" y="18" font-size="20" fill="#C9CED6">Hill Climb Racing 3 hitch</text>
+      <text x="196" y="46" font-size="18" fill="#8D96A3" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace">was 450 ms · Berberis</text>
+    </g>
+    <g id="m4" transform="translate(696 388)">
+      <rect x="0" y="12" width="14" height="14" rx="3" fill="#3DDC84"/>
+      <text x="26" y="38" font-size="38" font-weight="600" fill="#F0EEE9">4–8×</text>
+      <text x="196" y="18" font-size="20" fill="#C9CED6">less texture memory</text>
+      <text x="196" y="46" font-size="18" fill="#8D96A3" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace">ETC2/ASTC, iGPU, &lt;6 GB</text>
+    </g>
+  </g>
+</svg>
