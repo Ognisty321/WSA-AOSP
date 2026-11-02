@@ -2,11 +2,9 @@
 How to keep this file:
 - Every change users notice goes under "Unreleased" as it lands, in plain words: what changed
   for them, with the number that shows it when there is one.
-- At a release, rename "Unreleased" to the build number and date, add an empty "Unreleased"
-  above it and a link line at the bottom. The section is the body of the GitHub release:
-    awk '/^## \[BUILD\]/{f=1;next} /^(## )?\[/{f=0} f' CHANGELOG.md > notes.md
-    gh release create BUILD --prerelease --notes-file notes.md \
-      WSA-AOSP17_BUILD_*.zip WSA-AOSP17_BUILD_*_GPL-sources.tar.xz WSA-AOSP17_BUILD_SHA256SUMS.txt
+- At a release, the section of the build (else "Unreleased") is the "What's new" of its GitHub
+  release; the first release has none. Once it is out, rename "Unreleased" to
+  `[BUILD] - YYYY-MM-DD`, add an empty "Unreleased" above it and a link line at the bottom.
 - Headings: Added, Changed, Improved, Fixed, Security. Leave out the empty ones.
 -->
 
@@ -17,6 +15,9 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261102.2135] - 2026-11-03
+
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261102.2135]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261102.2135

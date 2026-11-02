@@ -191,13 +191,14 @@ Open an [issue](https://github.com/Ognisty321/WSA-AOSP/issues) with the build nu
 
 ## Source code and licenses
 
-The build system of this port is not public yet. Every ZIP comes with
-`<the same name>_GPL-sources.tar.xz`, the source of everything in it under the GPL or another
-copyleft license:
+The build system of this port is not public yet. Every release comes with
+`WSA-AOSP17_<build>_GPL-sources.tar.xz`, the source of everything in its ZIPs under the GPL or
+another copyleft license:
 
-- the Linux kernel: the exact tree it was built from, with the root driver and SuSFS of the
-  variant, the port's changes as patches, its configuration and the files that build it;
-- the root at the commit its app was built from: SukiSU-Ultra (with the port's changes to its
+- the Linux kernels: the exact tree of the kernel without root, with the port's changes as
+  patches, and for each root the patches that add its driver and SuSFS; the configuration of
+  every kernel and the files that build them;
+- each root at the commit its app was built from: SukiSU-Ultra (with the port's changes to its
   `ksud`), KernelSU or KernelSU-Next with the SuSFS module for x86_64, or Magisk, Kitsune Mask or
   Magisk Alpha with the program that starts it from the initrd;
 - the copyleft projects of Android 17 in the images (libcore, e2fsprogs, iptables, ...), at the
