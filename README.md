@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/readme/hero.svg" width="100%" alt="WSA-AOSP: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. New: the host graphics DLLs, Google Play and Berberis, Android 17 and Linux 6.18 with the root of your choice. Kept from Microsoft's WSA 2407: the Windows host and the vendor partition.">
+  <img src="./assets/readme/hero.svg" width="100%" alt="WSA-AOSP: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. New: the host graphics DLLs, Google Play, the ARM translators Berberis and Houdini, Android 17 and Linux 6.18 with an optional root. Kept from Microsoft's WSA 2407: the Windows host and the vendor partition.">
 </p>
 
 <p align="center">
@@ -80,7 +80,7 @@ Every build comes as one ZIP per root, with the same Android 17 and Google Play 
 
 | `WSA-AOSP17_<build>_….zip` | Root | You install yourself, from the ZIP |
 |---|---|---|
-| `NoRoot` | none | |
+| `NoRoot` | none | nothing |
 | `SukiSU-SUSFS` | SukiSU-Ultra with SuSFS | the SukiSU manager built for this port |
 | `SukiSU` | SukiSU-Ultra | the manager of SukiSU-Ultra's release |
 | `KernelSU-SUSFS` | KernelSU with SuSFS | the KernelSU manager and the SuSFS module |
@@ -180,7 +180,7 @@ and steps.
   the ZIP: its `ksud` supports SuSFS on x86_64 and the kernel trusts its signature; the stock
   manager from GitHub does not handle SuSFS here.
 - **SukiSU-Ultra**: the stock manager of SukiSU-Ultra's release.
-- **KernelSU, KernelSU-Next with SuSFS**: the manager from the ZIP, which upstream's CI built from
+- **KernelSU or KernelSU-Next with SuSFS**: the manager from the ZIP, which upstream's CI built from
   the same commit as the kernel's driver (a manager that does not match asks for an update and
   hides Superuser and Modules). SuSFS's tool and settings come as `ksu_module_susfs-…-x86_64.zip`:
   `adb push` it to `/sdcard/Download` and install it under Modules.

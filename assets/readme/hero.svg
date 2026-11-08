@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="576" viewBox="0 0 1200 576" role="img" aria-labelledby="title desc">
   <title id="title">WSA-AOSP</title>
-  <desc id="desc">Unofficial Windows Subsystem for Android builds: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. The layer stack marks what is new (graphics DLLs, Google Play and Berberis, Android 17, Linux 6.18 with the root of your choice: KernelSU, SukiSU-Ultra, KernelSU-Next, SuSFS or Magisk) and what is kept from Microsoft's WSA 2407 (the host and the vendor partition).</desc>
+  <desc id="desc">Unofficial Windows Subsystem for Android builds: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. The layer stack marks what is new (graphics DLLs, Google Play, the ARM translators Berberis and Houdini, Android 17, Linux 6.18 with an optional root: SukiSU-Ultra, KernelSU or KernelSU-Next with SuSFS, or Magisk, Kitsune Mask or Magisk Alpha) and what is kept from Microsoft's WSA 2407 (the host and the vendor partition).</desc>
 
   <rect width="1200" height="576" rx="24" fill="#0E1116"/>
   <rect x="0.75" y="0.75" width="1198.5" height="574.5" rx="23.5" fill="none" stroke="#202833" stroke-width="1.5"/>
@@ -46,7 +46,7 @@
       <text x="668" y="281" font-family="ui-monospace, 'Cascadia Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="16" letter-spacing="1.5" fill="#8D96A3">HYPER-V VIRTUAL MACHINE</text>
       <rect x="664" y="296" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
       <rect x="680" y="312" width="16" height="16" rx="3" fill="#3DDC84"/>
-      <text x="710" y="327">Google Play · ARM apps via Berberis</text>
+      <text x="710" y="327">Google Play · ARM apps: Berberis, Houdini</text>
       <rect x="664" y="352" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
       <rect x="680" y="368" width="16" height="16" rx="3" fill="#3DDC84"/>
       <text x="710" y="383">Android 17 (AOSP) · SELinux enforcing</text>
@@ -55,7 +55,7 @@
       <text x="710" y="439">Vendor partition (WSA 2407)</text>
       <rect x="664" y="464" width="456" height="48" rx="8" fill="#12261C" stroke="#2F8F5B" stroke-width="1.5"/>
       <rect x="680" y="480" width="16" height="16" rx="3" fill="#3DDC84"/>
-      <text x="710" y="495">Linux 6.18 · KernelSU, Magisk, SuSFS</text>
+      <text x="710" y="495">Linux 6.18 · optional KernelSU or Magisk</text>
     </g>
   </g>
 </svg>
