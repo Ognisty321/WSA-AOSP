@@ -12,8 +12,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Ognisty321/WSA-AOSP/releases"><img src="https://img.shields.io/github/v/release/Ognisty321/WSA-AOSP?include_prereleases&label=build&color=3DDC84" alt="Latest build"></a>
-  <a href="https://github.com/Ognisty321/WSA-AOSP/releases"><img src="https://img.shields.io/github/downloads/Ognisty321/WSA-AOSP/total?color=6CA6E8" alt="Downloads"></a>
+  <a href="https://github.com/Ognisty321/WSA-AOSP/releases"><img src="https://img.shields.io/github/v/release/Ognisty321/WSA-AOSP?include_prereleases&display_name=release&label=latest&color=3DDC84&cacheSeconds=3600" alt="Latest build"></a>
+  <a href="https://github.com/Ognisty321/WSA-AOSP/releases"><img src="https://img.shields.io/github/downloads/Ognisty321/WSA-AOSP/total?color=6CA6E8&cacheSeconds=86400" alt="Downloads"></a>
   <img src="https://img.shields.io/badge/Android-17-3DDC84" alt="Android 17">
   <img src="https://img.shields.io/badge/Linux-6.18-6CA6E8" alt="Linux 6.18">
   <img src="https://img.shields.io/badge/Windows%2011-x64-6CA6E8" alt="Windows 11 x64">
