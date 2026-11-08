@@ -15,19 +15,26 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
-## [20261108.1547] - 2026-11-08
+## [20261108.1547-r2] - 2026-11-08
+
+This build replaces 20261108.1547, which was out for two hours the same day. It has the same
+Android image, kernels and root files. Only WSA Tray changed: its amber dot went away when the
+virtual machine came up, about 20 s before Android was ready, and now stays until Android has
+fully started. In WSA's "Partially running" mode (the default with 16 GB of memory or more) the
+icon is grey and says "partially running" while the machine waits for an app. If WSA is turned
+off from elsewhere, the stand-by machine too, the dot shows until it is off.
 
 ### Added
 
-- WSA Tray: an icon next to the clock shows whether WSA runs (grey while it is off, an amber dot
-  while it starts or turns off). Its menu starts, restarts and turns off WSA and opens your
-  Android apps, Files, Android settings and WSA settings; About shows the Android, kernel and
-  root versions and copies the build info for bug reports. "Keyboard and mouse in games" turns
-  wsapad on and off in the background, and "Set up game controls…" opens its window; closing
-  that window leaves the keys on, and the first time a hint says that F8 in the game turns
-  them on. It starts at sign-in, and Run.bat
-  starts it after the install. If Windows puts the new icon under the ^ arrow, the tray says so
-  once. It speaks every language of WSA (55), right to left in Arabic, Persian and Hebrew.
+- WSA Tray: an icon next to the clock shows whether WSA runs (grey while it is off or partially
+  running, an amber dot while it starts or turns off). Its menu starts, restarts and turns off
+  WSA and opens your Android apps, Files, Android settings and WSA settings; About shows the
+  Android, kernel and root versions and copies the build info for bug reports. "Keyboard and
+  mouse in games" turns wsapad on and off in the background, and "Set up game controls…" opens
+  its window; closing that window leaves the keys on, and the first time a hint says that F8 in
+  the game turns them on. It starts at sign-in, and Run.bat starts it after the install. If
+  Windows puts the new icon under the ^ arrow, the tray says so once. It speaks every language
+  of WSA (55), right to left in Arabic, Persian and Hebrew.
 - wsapad has a window: pick a game profile, choose whether Android sees an Xbox, PlayStation
   (DualSense) or Switch Pro controller, and click a button, stick or trigger on the picture of
   that controller to bind keys and mouse buttons to it. Mouse sensitivity, dead zone, curve,
@@ -85,5 +92,5 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
-[20261108.1547]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261108.1547
+[20261108.1547-r2]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261108.1547-r2
 [20261102.2135]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261102.2135
