@@ -15,6 +15,39 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261111.0023] - 2026-11-11
+
+### Improved
+
+- ARM64 apps and games need less processor time. The translator kept every register exact before
+  each memory access, in all code, so that a crash handler of the app could go on. Now it does so
+  only for code that needs it: code made at run time, Mono and .NET, Go, and any library in which
+  it turns out to be needed. Hill Climb Racing 3 uses a quarter less processor time while it
+  starts (59-60 s instead of 77-82 s in its first 105 s), and plain computation in ARM code is up
+  to twice as fast (matrix multiplication 14.4 instead of 6.6 GFLOPS, an SQLite test 1346 instead
+  of 2200 ms).
+- ARM64 code written in Go reads the clock ten times faster (`time.Now()` takes 86 ns instead of
+  897 ns), and a Go library inside an app is told which processor instructions the translator
+  has: its AES-GCM runs at about 1900 MB/s instead of 48 MB/s.
+
+### Fixed
+
+- VPN apps start. Android closed their "Connection request" window at once, because WSA's system
+  app forbids VPN settings at every start. Android now asks you before an app may run a VPN, as
+  on a phone. HTTP Toolkit's "Android Device via ADB" mode connects as well.
+- Android no longer stops because Windows read old memory of the virtual machine. The Windows
+  processes that serve the shared folders and the graphics of WSA keep views of the machine's
+  memory, and a view went stale when Android gave memory back to Windows and took it again. About
+  once in ten days of use the result was that all shared folders stopped and apps hung on their
+  files, or that the picture stood still, until WSA was restarted; data copied to or from a
+  Windows folder could also come out wrong. Microsoft's WSA has the same fault. The kernel now
+  gives those processes only memory that it never frees.
+- ARM64 programs written in Go run; they crashed when they started. An app with a Go library
+  that is built for debugging no longer dies at its first SHA-256, for example at its first
+  HTTPS connection.
+- Root variants: Frida attaches to apps and starts them, and so does HTTP Toolkit's "Android App
+  via Frida" mode. Both failed with "I/O error".
+
 ## [20261108.1547-r2] - 2026-11-08
 
 This build replaces 20261108.1547, which was out for two hours the same day. It has the same
@@ -92,5 +125,6 @@ off from elsewhere, the stand-by machine too, the dot shows until it is off.
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261111.0023]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261111.0023
 [20261108.1547-r2]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261108.1547-r2
 [20261102.2135]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261102.2135
