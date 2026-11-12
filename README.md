@@ -36,15 +36,17 @@ partition, and replaces Android, the kernel and the graphics libraries with buil
 - **Android 17** built from AOSP (`android-17.0.0_r1`, build `CP2A.260605.016`): a `user` build
   signed with its own keys, SELinux enforcing, with the fixes of the Android security bulletins
   (each release names its patch level).
-- **Linux 6.18** from the Android Common Kernel instead of Microsoft's 5.15, with the root you
-  pick ([variants](#variants)): **SukiSU-Ultra**, **KernelSU** or **KernelSU-Next** built in, with
-  **SuSFS** hiding the root from apps; **Magisk**, **Kitsune Mask** or **Magisk Alpha**; or none.
+- **Linux 6.18** from the Android Common Kernel instead of Microsoft's 5.15, and the root you
+  put in, if you want one ([Root](#root)): **SukiSU-Ultra**, **KernelSU** or **KernelSU-Next**
+  built into the kernel, with **SuSFS** hiding the root from apps; **Magisk**, **Kitsune Mask** or
+  **Magisk Alpha**.
 - **Graphics built from source.** gfxstream (upstream, with a layer for the WSA host) and Dozen
   from Mesa replace Microsoft's `gfxstream_backend.dll` and `vulkan_dzn.dll`, and Android's
   Vulkan driver comes from Mesa. Android gets **Vulkan 1.3** on the host GPU, and games get
   **OpenGL ES 3.2 with the Android Extension Pack** through ANGLE, so the Play Store offers games
   that need it, such as Genshin Impact.
-- **Google Play services and the Play Store**, from Google's Android 17 emulator image.
+- **Google Play services and the Play Store**, from Google's Android 17 emulator image, or
+  **no Google apps** at all: every build comes both ways ([variants](#variants)).
 - **ARM apps**: 64-bit ones through Berberis, Google's translator from the Android emulator
   image; 32-bit ones through Intel's Houdini 14.
 - **`wsapad.exe`** maps keyboard and mouse to an Xbox, PlayStation or Switch controller for games
@@ -72,15 +74,22 @@ kernel and the two graphics DLLs are new.
 | Host graphics DLLs | Microsoft's | gfxstream and Dozen built from source |
 | ARM64 apps | Houdini (Intel Bridge Technology) | **Berberis** |
 | Windows | 10 x64, 11 x64 and arm64 | 11 x64 only |
-| Variants | seven per platform (with or without GApps, Magisk, Amazon Appstore) | eight, all with Google Play: one per root, and one without |
+| Variants | seven per platform (with or without GApps, Magisk, Amazon Appstore) | two, with and without Google apps; every root is in both, to put in or take out at any time |
 
 ## Variants
 
-Every build comes as one ZIP per root, with the same Android 17 and Google Play in each:
+Every build comes twice, as the same Android 17 with and without the Google apps:
 
-| `WSA-AOSP17_<build>_….zip` | Root | You install yourself, from the ZIP |
+| `WSA-AOSP17_<build>_….zip` | Google apps |
+|---|---|
+| `GApps` | Google Play services and the Play Store |
+| `NoGApps` | none: apps come from `adb install` or an app store you install that way |
+
+Both come without a root and with every root of the build in their folder `Root`
+([Root](#root)):
+
+| Folder in `Root` | Root | You install yourself, from that folder |
 |---|---|---|
-| `NoRoot` | none | nothing |
 | `SukiSU-SUSFS` | SukiSU-Ultra with SuSFS | the SukiSU manager built for this port |
 | `SukiSU` | SukiSU-Ultra | the manager of SukiSU-Ultra's release |
 | `KernelSU-SUSFS` | KernelSU with SuSFS | the KernelSU manager and the SuSFS module |
@@ -88,12 +97,12 @@ Every build comes as one ZIP per root, with the same Android 17 and Google Play 
 | `Magisk` | Magisk | the Magisk app |
 | `KitsuneMask` | Kitsune Mask | the Kitsune Mask app |
 | `MagiskAlpha` | Magisk Alpha | the Magisk Alpha app |
+| `NoRoot` | none | nothing: it takes a root out again |
 
 SukiSU-Ultra, KernelSU and KernelSU-Next are built into the kernel, and SuSFS hides the root from
 apps. Magisk and its forks start from `Tools\initrd.img` through a hook in the kernel, as WSA has
-no boot image to patch. Not sure? Take `NoRoot`: you can change to another variant later
-([Updating](#updating)). The `README.txt` of each ZIP names the exact versions and the steps for
-its root.
+no boot image to patch. A root is only a kernel (and that `initrd.img`) next to the same Android,
+so you can put one in, change it or take it out at any time, and your apps and data stay.
 
 ## Install
 
@@ -119,7 +128,8 @@ its root.
    again), registers WSA and starts the WSA Tray icon. Log:
    `%LOCALAPPDATA%\WSA-AOSP17-backups\install.log`.
 5. Start **Windows Subsystem for Android** from the Start menu or the tray icon. The first start
-   takes longer. The Play Store and your Android apps then appear in the Start menu.
+   takes longer. Your Android apps then appear in the Start menu.
+6. For a root, see [Root](#root).
 
 > [!TIP]
 > To check the download, compare the output of `Get-FileHash .\WSA-AOSP17_*.zip` in PowerShell
@@ -138,11 +148,8 @@ old folder. Without `-KeepData` the installer backs up the Android data to
 `%LOCALAPPDATA%\WSA-AOSP17-backups` and starts fresh, as it must when you come from Microsoft's
 WSA or WSABuilds. Going back to an older build with the same data is not supported.
 
-Another variant goes in the same way.
-
-> [!CAUTION]
-> Between two different roots, leave out `-KeepData`: the modules and settings of one root (in
-> `/data/adb`) are not meant for another.
+The other variant of a build (with or without Google apps) goes in the same way. If your
+previous WSA had a root, `Run.bat -KeepData` puts the same root into the new folder.
 
 ## adb
 
@@ -153,7 +160,15 @@ Another variant goes in the same way.
 
 ## Google Play
 
-Sign in to the Play Store with your Google account.
+In the `GApps` variant, sign in to the Play Store with your Google account. The `NoGApps` variant
+has no Google Play services and no Play Store: apps that need them do not work or ask for them,
+and you install apps with `adb install` or an app store that you install that way.
+
+You can change between the two with `Run.bat -KeepData`. From `GApps` to `NoGApps`, the updates
+of Google Play services and the Play Store stay in your Android data as ordinary apps, which do
+not work without their parts in the system: uninstall both afterwards, in Android's
+**Settings > Apps** or with `adb uninstall com.google.android.gms` and
+`adb uninstall com.android.vending`.
 
 > [!NOTE]
 > This Android is not certified by Google (Play Store > Settings > About > Play Protect
@@ -172,23 +187,39 @@ Sign in to the Play Store with your Google account.
 
 ## Root
 
-The app of the root is not preinstalled. Install it from the WSA folder with [adb](#adb), for
-example `adb install "C:\WSA\Magisk-v31.1.apk"`; the `README.txt` there has the exact file names
-and steps.
+WSA comes without a root. Every root of the build is in the folder `Root` of the WSA folder:
+
+1. Run `Root\Root.bat` and type the number of the root, or name it in a terminal in the WSA
+   folder: `.\Root\Root.bat SukiSU-SUSFS`. It shuts WSA down and copies `kernel` and
+   `initrd.img` of that root to `Tools\`. It needs no administrator rights, and your apps and
+   data stay.
+2. Start WSA and install the app of the root from its folder with [adb](#adb), for example
+   `adb install "C:\WSA\Root\Magisk\Magisk-v31.1.apk"`. `Root\README.txt` has the exact file
+   names and steps for each root.
+
+`.\Root\Root.bat NoRoot` takes the root out again. By hand it is the same two files: with WSA
+turned off, copy `kernel` and `initrd.img` from the folder of the root to `Tools\`.
 
 - **SukiSU-Ultra with SuSFS**: the manager shows "Working" and the SuSFS version. Use the one from
-  the ZIP: its `ksud` supports SuSFS on x86_64 and the kernel trusts its signature; the stock
+  the folder `Root`: its `ksud` supports SuSFS on x86_64 and the kernel trusts its signature; the stock
   manager from GitHub does not handle SuSFS here.
 - **SukiSU-Ultra**: the stock manager of SukiSU-Ultra's release.
-- **KernelSU or KernelSU-Next with SuSFS**: the manager from the ZIP, which upstream's CI built from
-  the same commit as the kernel's driver (a manager that does not match asks for an update and
-  hides Superuser and Modules). SuSFS's tool and settings come as `ksu_module_susfs-…-x86_64.zip`:
-  `adb push` it to `/sdcard/Download` and install it under Modules.
+- **KernelSU or KernelSU-Next with SuSFS**: the manager from the folder `Root`, which upstream's CI built
+  from the same commit as the kernel's driver (a manager that does not match asks for an update
+  and hides Superuser and Modules). SuSFS's tool and settings come as
+  `ksu_module_susfs-…-x86_64.zip`: `adb push` it to `/sdcard/Download` and install it under
+  Modules.
 - **Magisk, Kitsune Mask, Magisk Alpha**: on the first start the app asks for additional setup
   and restarts Android; then Zygisk can be turned on. Its Install and Uninstall buttons do not
   apply (there is no boot image); a newer version comes with a newer build of this port.
 
 KPM modules of SukiSU-Ultra do not work on x86_64.
+
+> [!CAUTION]
+> Use the roots of a build with that build only. From one root to another: Android keeps the
+> modules and settings of the old root (in `/data/adb`), which are not meant for another one.
+> Remove the modules in the app of the old root and uninstall that app first; if the new root
+> still does not work, start with fresh Android data (`Run.bat` without `-KeepData`).
 
 ## Uninstall
 
@@ -205,7 +236,7 @@ name the backup and the folder that belong together:
 
 - Tested on one PC: AMD Ryzen 7 7800X3D with an NVIDIA GeForce RTX 5070 Ti. AMD and Intel GPUs
   and Intel CPUs should work but have not been checked.
-- Windows 11 x64 only, and every variant has Google Play.
+- Windows 11 x64 only.
 - Not certified by Google: apps and games that check Play Integrity may refuse to run or to log
   in (Pixel Gun 3D starts, but its server rejects the login).
 - Apps from Microsoft's WSA or WSABuilds have to be installed again; their data stays in the
@@ -232,7 +263,9 @@ another copyleft license:
   every kernel and the files that build them;
 - each root at the commit its app was built from: SukiSU-Ultra (with the port's changes to its
   `ksud`), KernelSU or KernelSU-Next with the SuSFS module for x86_64, or Magisk, Kitsune Mask or
-  Magisk Alpha with the program that starts it from the initrd;
+  Magisk Alpha with the program that starts it from the initrd. Magisk Alpha is the exception: its
+  author publishes the app, but not the changes it is built from, so the archive has the published
+  Magisk that Alpha starts from, not Alpha's complete source;
 - the copyleft projects of Android 17 in the images (libcore, e2fsprogs, iptables, ...), at the
   commits the images were built from.
 

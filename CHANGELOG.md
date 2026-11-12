@@ -15,6 +15,82 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261112.1628] - 2026-11-12
+
+### Added
+
+- A build without Google apps. Every build now comes as `GApps` (Google Play services and the
+  Play Store, as before) and `NoGApps` (the same Android without them)
+  ([issue 1](https://github.com/Ognisty321/WSA-AOSP/issues/1)).
+
+### Changed
+
+- A build no longer comes as one ZIP per root. Both variants come without a root and with every
+  root in their folder `Root`: run `Root\Root.bat` and pick SukiSU-Ultra, KernelSU, KernelSU-Next
+  (each with SuSFS), SukiSU-Ultra without SuSFS, Magisk, Kitsune Mask or Magisk Alpha. Your apps
+  and data stay, `Root\Root.bat NoRoot` takes the root out again, and an update with
+  `Run.bat -KeepData` keeps the root you had. A release is two downloads instead of eight.
+
+### Improved
+
+- wsapad (the keyboard and mouse as a controller, or as touches) costs next to nothing while it
+  waits in the background: under 0.1 % of a processor core and about 10 wake-ups a second instead
+  of 0.9 % and 740, 10 threads instead of 50, and 4 MB of memory instead of 96 MB. It no longer
+  keeps a Direct3D device for a window nobody sees, starts no `adb` while WSA is not running, and
+  is told when the game comes to the front instead of looking for it all the time.
+- wsapad is between the keyboard and Windows only while a game of WSA with a profile is in front.
+  Other windows, Windows games among them, run without it in between. In a game, Win, Alt+Tab,
+  Alt+F4, Ctrl+Esc and Win+Shift+S work also when the profile uses Shift, Ctrl, Alt, Tab or Esc.
+- The window of wsapad: View, Menu and the Xbox button (−, + and Home on the Switch pad) have
+  their labels above the picture, next to the buttons; the keys of a button stay on one line
+  where there is room; the line to a button no longer runs across its neighbour. Dialogs open in
+  the middle of the window. The window fits a 1366 × 768 screen, and Settings scrolls.
+- wsapad's window looks like WSA Settings, next to which you open it: Mica under the whole
+  window, the accent shades of Windows (the same colour as the bar in WSA Settings), the name in
+  the title bar, and Settings as cards with an icon, a name and what each setting does.
+- The card in wsapad's window tells a touch screen from a controller, and when an app of WSA is
+  open but WSA does not let `adb` in, it says so and opens WSA's settings, where developer mode
+  is turned on.
+
+### Fixed
+
+- A window that you close no longer loses its content from the bottom up before it fades out.
+  Android played its own closing animation in the window while Windows closed it; now only
+  Windows animates the window ([issue 1](https://github.com/Ognisty321/WSA-AOSP/issues/1)).
+- Copying text or a picture, in Android or in Windows, no longer brings up Android's clipboard
+  preview over the desktop ([issue 1](https://github.com/Ognisty321/WSA-AOSP/issues/1)).
+- `Run.bat` without `-KeepData` starts with fresh Android data again. It made the backup, but
+  left the data of the WSA it replaced in place, so Android started on the old data.
+- "Local network access" (WSA Settings, Advanced settings, Experimental features) works. With
+  it on, Android had no network at all; now it takes the address of the Windows PC in your
+  network. It is off by default, and what Windows does not pass in that mode stays so: `ping`
+  gets no answer, and while NordVPN is connected on Windows, names do not resolve (they do
+  with the switch off).
+- Where the windows of two Android apps overlap, a click or a touch (also from wsapad) in the
+  shared part goes to the window in front. It went to the window that had been in front
+  before, and Windows then brought that one to the front, so the two windows swapped places.
+- wsapad takes keys and the mouse only while its controller or touch screen exists in Android.
+  With WSA's developer mode off, F8 took them and they went nowhere.
+- wsapad: a key held while a game came to the front, or let go after it left, no longer stays
+  down in Windows or in the game.
+- wsapad: AltGr no longer presses what a profile has on the left Ctrl.
+- wsapad, touch controls: a tap pressed again during the one before is no longer lost; a notch
+  of the mouse wheel on a repeated tap is one tap; zooming and scrolling with the wheel go on
+  when the fingers reach the end of their way; in a portrait game the camera finger stays inside
+  the game; when the game's window moves, the fingers are lifted at once and a held joystick goes
+  down again in the new place.
+- `wsapad.ini`: a `;` in the name of a game, in a window title or in the path of adb is no longer
+  the start of a comment; a repeated tap keeps both its count and its rate; an option with a value
+  out of range says the range.
+- wsapad: the keys that turn the mapping on and free the mouse cannot be keys of a game any more,
+  also in a game read from a file or from a BlueStacks keymap. Choosing one of them anew in
+  Settings takes it out of the games that used it.
+- wsapad: importing a BlueStacks keymap into a game that already has touch controls asks before
+  it replaces them. A renamed game keeps its picture. A settings file named on the command line is
+  also the one changes are saved to.
+- wsapad: the keys shown over a game no longer cover each other where two controls are in one
+  place, such as a zoom on a button. The second key stands below the first.
+
 ## [20261111.0023] - 2026-11-11
 
 ### Improved
@@ -125,6 +201,7 @@ off from elsewhere, the stand-by machine too, the dot shows until it is off.
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261112.1628]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261112.1628
 [20261111.0023]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261111.0023
 [20261108.1547-r2]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261108.1547-r2
 [20261102.2135]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261102.2135
