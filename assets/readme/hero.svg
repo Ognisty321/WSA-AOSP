@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="576" viewBox="0 0 1200 576" role="img" aria-labelledby="title desc">
   <title id="title">WSA-AOSP</title>
-  <desc id="desc">Unofficial Windows Subsystem for Android builds: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. The layer stack marks what is new (graphics DLLs, Google Play, the ARM translators Berberis and Houdini, Android 17, Linux 6.18 with an optional root: SukiSU-Ultra, KernelSU or KernelSU-Next with SuSFS, or Magisk, Kitsune Mask or Magisk Alpha) and what is kept from Microsoft's WSA 2407 (the host and the vendor partition).</desc>
+  <desc id="desc">Unofficial Windows Subsystem for Android builds: Microsoft's WSA host with Android 17, a Linux 6.18 kernel and graphics rebuilt from source. The layer stack marks what is new (graphics DLLs, Google Play, the ARM translators Berberis and Houdini, Android 17, Linux 6.18 with an optional root: SukiSU-Nova, KernelSU or KernelSU-Next with SuSFS, or Magisk, Kitsune Mask or Magisk Alpha) and what is kept from Microsoft's WSA 2407 (the host and the vendor partition).</desc>
 
   <rect width="1200" height="576" rx="24" fill="#0E1116"/>
   <rect x="0.75" y="0.75" width="1198.5" height="574.5" rx="23.5" fill="none" stroke="#202833" stroke-width="1.5"/>

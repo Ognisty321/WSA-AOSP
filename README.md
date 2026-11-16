@@ -28,7 +28,7 @@ own windows, Start menu entries, clipboard, notifications, shared folders) and i
 partition, and replaces Android, the kernel and the graphics libraries with builds from source.
 
 <p align="center">
-  <img src="./assets/readme/proof.svg" width="100%" alt="adb shell on a running build reports Android 17, kernel 6.18.33-android17, SELinux enforcing, Vulkan 1.3.261 on the host NVIDIA GeForce RTX 5070 Ti through gfxstream and the OpenGL ES Android Extension Pack. Measured against the upstream code of each part: Genshin shader warm-up about 45 min to 2.5 min, Android to Windows graphics call 12 to 15 µs to 1.2 µs, Hill Climb Racing 3 hitch 450 ms to 260 ms, Asphalt 9 ASTC textures 715 MiB to 145 MiB on integrated GPUs and GPUs under 6 GB.">
+  <img src="./assets/readme/proof.svg" width="100%" alt="adb shell on a running build reports Android 17, kernel 6.18.33-android17, SELinux enforcing, Vulkan 1.4.357 on the host NVIDIA GeForce RTX 5070 Ti through gfxstream and the OpenGL ES Android Extension Pack. Measured against the upstream code of each part: Genshin shader warm-up about 45 min to 2.5 min, Android to Windows graphics call 12 to 15 µs to 1.2 µs, Hill Climb Racing 3 hitch 450 ms to 260 ms, Asphalt 9 ASTC textures 715 MiB to 145 MiB on integrated GPUs and GPUs under 6 GB.">
 </p>
 
 ## What's inside
@@ -37,12 +37,12 @@ partition, and replaces Android, the kernel and the graphics libraries with buil
   signed with its own keys, SELinux enforcing, with the fixes of the Android security bulletins
   (each release names its patch level).
 - **Linux 6.18** from the Android Common Kernel instead of Microsoft's 5.15, and the root you
-  put in, if you want one ([Root](#root)): **SukiSU-Ultra**, **KernelSU** or **KernelSU-Next**
+  put in, if you want one ([Root](#root)): **SukiSU-Nova**, **KernelSU** or **KernelSU-Next**
   built into the kernel, with **SuSFS** hiding the root from apps; **Magisk**, **Kitsune Mask** or
   **Magisk Alpha**.
 - **Graphics built from source.** gfxstream (upstream, with a layer for the WSA host) and Dozen
   from Mesa replace Microsoft's `gfxstream_backend.dll` and `vulkan_dzn.dll`, and Android's
-  Vulkan driver comes from Mesa. Android gets **Vulkan 1.3** on the host GPU, and games get
+  Vulkan driver comes from Mesa. Android gets **Vulkan 1.4** on the host GPU, and games get
   **OpenGL ES 3.2 with the Android Extension Pack** through ANGLE, so the Play Store offers games
   that need it, such as Genshin Impact.
 - **Google Play services and the Play Store**, from Google's Android 17 emulator image, or
@@ -68,9 +68,9 @@ kernel and the two graphics DLLs are new.
 |---|---|---|
 | Android | 13 (Microsoft) | **17** (AOSP) |
 | Kernel | 5.15.104 (Microsoft) | **6.18** (Android Common Kernel) |
-| Root | Magisk (KernelSU in older builds) | **SukiSU-Ultra, KernelSU, KernelSU-Next** (with SuSFS), **Magisk, Kitsune Mask, Magisk Alpha** |
+| Root | Magisk (KernelSU in older builds) | **SukiSU-Nova, KernelSU, KernelSU-Next** (with SuSFS), **Magisk, Kitsune Mask, Magisk Alpha** |
 | OpenGL ES | 3.0 | **3.2 + AEP** |
-| Vulkan ("Vulkan driver" System Default / D3D12) | 1.3 / 1.1 | 1.3 / **1.2** |
+| Vulkan ("Vulkan driver" System Default / D3D12) | 1.3 / 1.1 | **1.4** / **1.2** |
 | Host graphics DLLs | Microsoft's | gfxstream and Dozen built from source |
 | ARM64 apps | Houdini (Intel Bridge Technology) | **Berberis** |
 | Windows | 10 x64, 11 x64 and arm64 | 11 x64 only |
@@ -90,8 +90,8 @@ Both come without a root and with every root of the build in their folder `Root`
 
 | Folder in `Root` | Root | You install yourself, from that folder |
 |---|---|---|
-| `SukiSU-SUSFS` | SukiSU-Ultra with SuSFS | the SukiSU manager built for this port |
-| `SukiSU` | SukiSU-Ultra | the manager of SukiSU-Ultra's release |
+| `SukiSU-SUSFS` | SukiSU-Nova with SuSFS | the SukiSU Nova manager built for this port |
+| `SukiSU` | SukiSU-Nova | the manager of SukiSU-Nova's release |
 | `KernelSU-SUSFS` | KernelSU with SuSFS | the KernelSU manager and the SuSFS module |
 | `KernelSU-Next-SUSFS` | KernelSU-Next with SuSFS | the KernelSU-Next manager and the SuSFS module |
 | `Magisk` | Magisk | the Magisk app |
@@ -99,7 +99,7 @@ Both come without a root and with every root of the build in their folder `Root`
 | `MagiskAlpha` | Magisk Alpha | the Magisk Alpha app |
 | `NoRoot` | none | nothing: it takes a root out again |
 
-SukiSU-Ultra, KernelSU and KernelSU-Next are built into the kernel, and SuSFS hides the root from
+SukiSU-Nova, KernelSU and KernelSU-Next are built into the kernel, and SuSFS hides the root from
 apps. Magisk and its forks start from `Tools\initrd.img` through a hook in the kernel, as WSA has
 no boot image to patch. A root is only a kernel (and that `initrd.img`) next to the same Android,
 so you can put one in, change it or take it out at any time, and your apps and data stay.
@@ -136,7 +136,7 @@ so you can put one in, change it or take it out at any time, and your apps and d
 > with the line of your ZIP in `WSA-AOSP17_<build>_SHA256SUMS.txt` from the same release.
 
 > [!IMPORTANT]
-> Vulkan 1.3 and OpenGL ES 3.2 need **Vulkan driver = System Default** in WSA Settings (under
+> Vulkan 1.4 and OpenGL ES 3.2 need **Vulkan driver = System Default** in WSA Settings (under
 > Experimental features); restart WSA after changing it. With D3D12, Android gets Vulkan 1.2 and
 > OpenGL ES 3.0; with None, OpenGL ES 3.0 and no Vulkan.
 
@@ -200,10 +200,13 @@ WSA comes without a root. Every root of the build is in the folder `Root` of the
 `.\Root\Root.bat NoRoot` takes the root out again. By hand it is the same two files: with WSA
 turned off, copy `kernel` and `initrd.img` from the folder of the root to `Tools\`.
 
-- **SukiSU-Ultra with SuSFS**: the manager shows "Working" and the SuSFS version. Use the one from
+- **SukiSU-Nova with SuSFS**: the manager shows "Working" and the SuSFS version. Use the one from
   the folder `Root`: its `ksud` supports SuSFS on x86_64 and the kernel trusts its signature; the stock
   manager from GitHub does not handle SuSFS here.
-- **SukiSU-Ultra**: the stock manager of SukiSU-Ultra's release.
+- **SukiSU-Nova**: the stock manager of SukiSU-Nova's release.
+- SukiSU-Nova was called SukiSU-Ultra until November 2026, and its manager is a new app (SukiSU
+  Nova). After an update from an older build install it from the folder `Root` and remove the
+  old one: `adb uninstall com.sukisu.ultra`. Your modules and the apps you allowed root stay.
 - **KernelSU or KernelSU-Next with SuSFS**: the manager from the folder `Root`, which upstream's CI built
   from the same commit as the kernel's driver (a manager that does not match asks for an update
   and hides Superuser and Modules). SuSFS's tool and settings come as
@@ -213,7 +216,7 @@ turned off, copy `kernel` and `initrd.img` from the folder of the root to `Tools
   and restarts Android; then Zygisk can be turned on. Its Install and Uninstall buttons do not
   apply (there is no boot image); a newer version comes with a newer build of this port.
 
-KPM modules of SukiSU-Ultra do not work on x86_64.
+KPM modules of SukiSU-Nova do not work on x86_64.
 
 > [!CAUTION]
 > Use the roots of a build with that build only. From one root to another: Android keeps the
@@ -241,8 +244,9 @@ name the backup and the folder that belong together:
   in (Pixel Gun 3D starts, but its server rejects the login).
 - Apps from Microsoft's WSA or WSABuilds have to be installed again; their data stays in the
   backup.
-- Task Manager may show a huge, growing "Dedicated GPU memory" for WsaClient. It is a quirk of how
-  Windows counts shared textures; the real use is a few hundred MB.
+- Task Manager's "Dedicated GPU memory" for WsaClient can read higher than the real use. Windows
+  adds the size of a window to it each time an Android window opens or is resized and never takes
+  it off (a known fault of that counter). The Performance tab shows the real use.
 
 ## Reporting problems
 
@@ -261,7 +265,7 @@ another copyleft license:
 - the Linux kernels: the exact tree of the kernel without root, with the port's changes as
   patches, and for each root the patches that add its driver and SuSFS; the configuration of
   every kernel and the files that build them;
-- each root at the commit its app was built from: SukiSU-Ultra (with the port's changes to its
+- each root at the commit its app was built from: SukiSU-Nova (with the port's changes to its
   `ksud`), KernelSU or KernelSU-Next with the SuSFS module for x86_64, or Magisk, Kitsune Mask or
   Magisk Alpha with the program that starts it from the initrd. Magisk Alpha is the exception: its
   author publishes the app, but not the changes it is built from, so the archive has the published
@@ -277,9 +281,9 @@ another copyleft license:
 | Windows host, initrd, vendor partition, Microsoft's Android apps | WSA 2407.40000.4.0 | Microsoft, proprietary |
 | `dxil.dll` | Windows SDK | Microsoft, proprietary |
 | Android 17 system | AOSP | Apache 2.0 and others (Android Settings > About > Legal information) |
-| Linux kernel, kernel part of the root | Android Common Kernel, SukiSU-Ultra, KernelSU, KernelSU-Next | GPL-2.0 |
+| Linux kernel, kernel part of the root | Android Common Kernel, SukiSU-Nova, KernelSU, KernelSU-Next | GPL-2.0 |
 | SuSFS | susfs4ksu | GPL-3.0-or-later (the project's license) |
-| Root managers, `ksud` | SukiSU-Ultra, KernelSU, KernelSU-Next | GPL-3.0-or-later |
+| Root managers, `ksud` | SukiSU-Nova, KernelSU, KernelSU-Next | GPL-3.0-or-later |
 | Magisk apps | Magisk, Kitsune Mask, Magisk Alpha | GPL-3.0 |
 | `gfxstream_backend.dll` | gfxstream | Apache 2.0 (some parts MIT, BSD and other permissive licenses) |
 | `vulkan_dzn.dll`, Android Vulkan driver | Mesa | MIT |
@@ -298,7 +302,7 @@ another copyleft license:
   [ANGLE](https://chromium.googlesource.com/angle/angle) and
   [Berberis](https://android.googlesource.com/platform/frameworks/libs/binary_translation).
 - [Mesa](https://gitlab.freedesktop.org/mesa/mesa) for Dozen and the Vulkan driver of Android.
-- For the root: [SukiSU-Ultra](https://github.com/SukiSU-Ultra/SukiSU-Ultra),
+- For the root: [SukiSU-Nova](https://github.com/SukiSU-Nova/SukiSU-Nova),
   [KernelSU](https://github.com/tiann/KernelSU),
   [KernelSU-Next](https://github.com/KernelSU-Next/KernelSU-Next) (with SuSFS by
   [pershoot](https://github.com/pershoot/KernelSU-Next)),

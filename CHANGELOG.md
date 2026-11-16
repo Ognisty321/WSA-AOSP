@@ -15,6 +15,88 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261116.1125] - 2026-11-16
+
+### Added
+
+- wsapad (keyboard and mouse in games) speaks all 55 languages of WSA, not only English and
+  Polish. It follows the first language of Windows Settings > Time & language that WSA has, the
+  way WSA itself does, and uses WSA's own words for its settings. `language = de-DE` in the
+  `[general]` part of wsapad.ini picks another one.
+
+### Changed
+
+- The root variants come with the newest versions: SukiSU-Nova v3.0.0, KernelSU 32730 (manager
+  v3.3.1-50) and KernelSU-Next 33553 (manager v3.4.2-198), each with the SuSFS v2.4.0 of
+  15 November 2026. Magisk v31.1, Kitsune Mask and Magisk Alpha have no newer release.
+- SukiSU-Ultra is now called SukiSU-Nova, and v3.0.0 is its release after v4.3.0-r2. Its manager
+  is a new app (SukiSU Nova, `com.sukisu.nova`) that installs next to the old one. After the
+  update install it from the folder of the root; the old manager (SukiSU) then says "Not
+  installed" and can go: `adb uninstall com.sukisu.ultra`. Your modules and the apps you
+  allowed root stay.
+- The SukiSU Nova manager has a Zygisk of its own (Settings > Built-in Zygisk), so a Zygisk
+  module is no longer needed. It works in both SukiSU folders, for 64-bit apps.
+
+### Improved
+
+- Vulkan 1.4 for Android apps instead of 1.3, where the graphics driver of Windows has it. Three
+  parts were renewed together: the Windows side of the graphics (gfxstream) follows its upstream
+  of November 2026, the package carries the Vulkan loader 1.4.363 of Khronos instead of
+  Microsoft's 1.3.261, and Android's Vulkan driver is built from the current Mesa instead of the
+  one of March 2026. Of the 35,303 cases of the Vulkan conformance tests the port runs, 29,247
+  pass now instead of 23,783 (the others are features the device does not have), and none fails,
+  as before.
+- A Vulkan call that waits for an answer of Windows returns in 0.8 µs instead of 1.2 µs, and
+  every other Vulkan call costs the app about 80 ns less: the driver formatted a name for a
+  tracing tool on every call, though no such tool was there.
+- Games that draw with OpenGL ES (Genshin Impact among them) stutter less when they show
+  something for the first time. Android's Vulkan driver now passes on the pipeline libraries of
+  the Windows driver, so a pipeline is put together from parts compiled while the game loaded
+  instead of being compiled whole in the middle of a frame. A walk through the world of Genshin
+  Impact on a new driver cache had 831 such compiles of 8 ms or more in 12 minutes (30 ms in
+  the middle, up to 650 ms), now 10 in about 15 minutes, none longer than 19 ms. A game
+  compiles its shaders once more at its first start after the update.
+- Games whose frames take the graphics card several milliseconds reach the screen at an even
+  pace. Android handed such a frame to the display while the card still drew it, so it showed
+  up when the card was done: on time, or a refresh of the monitor late, and the next one then
+  early. In the world of Genshin Impact on a 280 Hz monitor 84 % of the frames came exactly
+  one frame time (17.9 ms) after the one before and the others 14 or 21 ms after; now 99 % do.
+  A frame now waits until it is drawn, which adds about 4.5 ms from the game to the screen in
+  such a game and about 1 ms from a click to the screen in a light one.
+
+### Fixed
+
+- An app or game that quits while one of its threads still draws with Vulkan (or with OpenGL ES
+  through ANGLE) no longer ends with a crash in Android's log. Its exit destroyed locks of the
+  Vulkan driver and of the port's Vulkan layer that the drawing thread then took.
+- Task Manager no longer shows WsaClient with a "Dedicated GPU memory" that grows with every
+  frame an app draws. The memory was never really used, but the number reached hundreds of GB:
+  20 seconds of scrolling Android Settings added 24.7 GB to it, now nothing. Windows still adds
+  the size of a window when one opens or is resized, so the number can end up somewhat above
+  the real use.
+- All Android apps could stand still together for 3 seconds. A request about a finished piece
+  of Vulkan work could reach Windows after the app had already put the object it was about to
+  new use, and Windows then waited for work that never came, with every other request of
+  Android behind it. It was rare, mostly while apps started and stopped. The request now says
+  which piece of work it is about.
+- Genshin Impact: leaves and branches of bushes close to the camera no longer flash dark blue
+  for a frame. The game draws them twice and counts on both passes giving exactly the same
+  depth, which the graphics driver of Windows promises only to shaders that ask for it; now
+  every shader asks. In a test spot 21 of 563 screenshots had holes in the leaves, now none of
+  3,000, and frames take as long as before.
+- Android apps could lose Vulkan (and OpenGL ES, which runs on it) until WSA was restarted, and
+  WSA then did not turn off, on PCs where another program had put a Vulkan layer of its own
+  into Windows: screen recorders, overlays, game trainers. Two apps that started drawing at
+  the same moment could lock each other up inside such a layer. WSA no longer loads these
+  layers, which it had no use for.
+- An app whose shader has a `precise` variable and writes to a named interface block no longer
+  crashes while the shader compiles.
+- wsapad: "Picture of the game" in the touch controls never got a picture and said "Android gave
+  no picture". It takes one now.
+- wsapad: "Add game" lists every open app of WSA. A game that already had its controls was left
+  out, and with no other app open the menu said "No WSA app windows are open". Such a game now
+  stands at the end of the list, marked "Added", and a click shows its controls.
+
 ## [20261112.1628] - 2026-11-12
 
 ### Added
@@ -201,6 +283,7 @@ off from elsewhere, the stand-by machine too, the dot shows until it is off.
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261116.1125]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261116.1125
 [20261112.1628]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261112.1628
 [20261111.0023]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261111.0023
 [20261108.1547-r2]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261108.1547-r2
