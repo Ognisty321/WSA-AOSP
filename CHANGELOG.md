@@ -15,6 +15,67 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261121.1938] - 2026-11-21
+
+### Added
+
+- "Android volume" in the menu of the WSA icon in the notification area: a flyout like the
+  volume flyout of Windows, with a slider, a mute button and the level, for the volume inside
+  Android. It follows what apps and the Android settings do to the volume as it happens, and
+  works with the mouse wheel and the keyboard (arrows, M to mute) and with screen readers. It
+  needs no developer mode. BlueStacks, MuMu and Google Play Games have such a control in their
+  window; in WSA the only slider was in the Android settings.
+
+### Changed
+
+- The volume of Android is a real one, as on a phone: apps can change it and see it change
+  (the volume swipe of video players, volume sliders in apps). It has 100 steps, as the volume
+  of Windows has (a phone has 15). It starts at the maximum, so WSA is as loud as before, and
+  it stays where an app leaves it; "Android volume" (above) sets it back. The volume keys of
+  the keyboard still set the volume of Windows: Windows does not pass them on to Android, so
+  apps that wait for a volume key (videos that unmute at volume up) get one only from
+  `adb shell input keyevent 24`.
+- The root variants come with the newest versions: SukiSU-Nova v3.0.0 as its release now has it
+  (version 35000, which upstream published under the same tag on 17 November; with 30000 the
+  manager offered it as an update), KernelSU 32735 (manager v3.3.1-55) and KernelSU-Next 33555
+  (manager v3.4.2-200), each with SuSFS v2.4.0. Magisk v31.1, Kitsune Mask and Magisk Alpha
+  have no newer release.
+
+### Improved
+
+- Google Play services sets the DeviceConfig flags of Android, as on phones with the Google
+  apps (about 1,700 flags of Google's own modules and apps; the flags of the platform code are
+  fixed in the build). Before, every attempt was refused and logged with an error, some 1,700
+  times in the first 20 minutes after a start.
+- Apps that name a window size in their manifest open at that size the first time. Before,
+  the size was dropped, as in WSA 2407, and the app got the default window (1280 x 720 for
+  landscape apps).
+
+### Fixed
+
+- WSA no longer restarts over and over when Windows is set to a time zone that Windows has
+  no IANA name for (for example "British Columbia Standard Time"). Android keeps its last
+  time zone then; you can pick the right one in the Android settings.
+- The time zones follow tzdata 2026f. British Columbia, Alberta, the Northwest Territories
+  and Manitoba no longer change their clocks after 1 November 2026, and Android showed the
+  time an hour off there. Morocco and Cuba changed too.
+- Ctrl+Backspace deletes the word before the cursor instead of typing an invisible
+  character.
+- Android apps no longer take over the `file:` and `content:` links of Windows. An app that
+  opens any file (a file manager, the root manager) registered itself for them.
+- `adb install` no longer hangs after a Google Play Protect dialog (such as "Harmful app
+  blocked"). WSA cleared the Play Store from memory as soon as the dialog
+  closed, before it could pass on your answer, so the app was neither installed nor refused.
+  Now "Install anyway" installs it and "OK" refuses it at once. Microsoft's WSA cleared apps
+  the same way.
+
+### Security
+
+- Android security fixes of November 2026 (security patch level 2026-11-01): the 104 changes
+  Google published for Android 17 on 2 November, in the system server, media, Bluetooth,
+  Wi-Fi, telephony and other parts. The NFC fix of the bulletin does not concern WSA, which
+  has no NFC.
+
 ## [20261116.1125] - 2026-11-16
 
 ### Added
@@ -283,6 +344,7 @@ off from elsewhere, the stand-by machine too, the dot shows until it is off.
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261121.1938]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261121.1938
 [20261116.1125]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261116.1125
 [20261112.1628]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261112.1628
 [20261111.0023]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261111.0023
