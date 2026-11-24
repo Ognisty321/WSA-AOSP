@@ -15,6 +15,48 @@ build (`YYYYMMDD.HHMM`); a `-rN` suffix marks the same Android image with new Wi
 
 ## [Unreleased]
 
+## [20261124.2016] - 2026-11-24
+
+### Changed
+
+- KernelSU-Next comes at its newest version, 33646, with SuSFS v2.4.0. Its manager is
+  v3.4.2-291, which upstream's CI built for this driver: the manager of the v3.4.2 release does
+  not speak the driver's newer interface. SukiSU-Nova, KernelSU, Magisk, Kitsune Mask and
+  Magisk Alpha have no newer version.
+
+### Fixed
+
+- Unity games with Optimized Frame Pacing (Swappy) keep their frame rate on fast monitors
+  (144 Hz and up). Such a game, for example Guardian Tales on a 280 Hz monitor, ran at 54 fps
+  after its start and slowed down by itself to 5 fps within about two minutes, for good, until
+  it was started again. Android gave the game the timing of the monitor's refresh next to the
+  slower rate games get (56 fps on 280 Hz, 48 fps on 144 Hz), and the frame pacing library
+  worked out a wrong delay from it.
+- The WSA Tray icon shows "partially running" again after WSA turns itself off when no app is
+  open. It could stay at "turning off" for good, with Start greyed out, until the tray was
+  started again: WSA brings up its stand-by machine as the old one goes, and the tray, which
+  looks once a second, did not see the moment without one.
+- Apps that draw their window in software (without hardware acceleration) show it right. Such
+  a window was green, its content three times side by side and striped (GameGuardian, for
+  example): the host took three of every four bytes of each pixel. Screenshots and other CPU
+  reads of what such a window or a game draws into it are right too.
+- Web links that a Windows program opens go to an Android app only when Android would give
+  them to it: the website names the app (verified App Links) or you picked the app for it, and
+  "Open supported links" is on for the app in the Android settings. Before, Windows sent to WSA
+  the links of every host an app merely listed: hosts nobody verified, names that are no web
+  address at all (Bloons TD 6 listed "map" and "game"), Google sign-in and Play links
+  (accounts.google.com, play.google.com), and the links of apps whose links you switched off.
+  Such a link started WSA only to end in the browser. A change in Android (an app's links
+  verified after it is installed, switched off or on, a host picked) reaches Windows in about
+  2 seconds.
+- Apps with more than one launcher activity get their own name and icon in the Start menu.
+  Such an app (GameGuardian, for example) was called "Complete action using" ("Wykonaj
+  działanie" in Polish) with the icon of Android's app chooser; it now has the name and icon of
+  the activity WSA starts.
+- After a system update every app is reported to Windows once more, so the fixes above and the
+  `file:` and `content:` fix of 20261121.1938 reach apps installed before the update too, not
+  only at their next update.
+
 ## [20261121.1938] - 2026-11-21
 
 ### Added
@@ -344,6 +386,7 @@ off from elsewhere, the stand-by machine too, the dot shows until it is off.
 First build on GitHub. What it contains is in the [README](README.md#whats-inside).
 
 [Unreleased]: https://github.com/Ognisty321/WSA-AOSP/releases
+[20261124.2016]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261124.2016
 [20261121.1938]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261121.1938
 [20261116.1125]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261116.1125
 [20261112.1628]: https://github.com/Ognisty321/WSA-AOSP/releases/tag/20261112.1628
